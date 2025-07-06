@@ -64,3 +64,23 @@ Cách trên để sử dụng tìm những phần tử > 3 bằng cách gọi l�
 Ngoài ra còn có:
 + Sum(data, axis = ..): Tính tổng các phần tử, axis là tính theo từng cột hay từng dòng
 + Max, min ..
+
+
+## Broadcasting
+Thuật ngữ này trong Numpy nghĩa là 2 hoặc nhiều mảng có thể tự động 'giãn' ra để có cùng shape, nhằm thực hiện các phép toán
+Để 2 mảng A và B được gọi là Broadcasting, Numpy sẽ kiểm tra từ 'phải sang trái':
++ Nếu 2 số bằng nhau
++ Nếu 1 trong 2 số là số 1, thì số 1 sẽ lặp lại thành chính số còn lại để tạo ra shape của vector cuối cùng
+
+Ví dụ:
+
+```python
+import numpy as np
+
+arr1 = np.array([1,2,3]) #(1,3)
+arr2 = np.array([[10], [20]]) #(2,1)
+
+print(np.add(arr1, arr2)
+```
+Như ví dụ trên ta có shape(arr1) = (1, 3), shape(arr2) = (2, 1). Vậy 2 vector này có thể Boardcasting vì arr2 có số 1 ở shape, nên kết quả của ví dụ này sẽ là (2, 3) 
+
