@@ -84,3 +84,25 @@ print(np.add(arr1, arr2)
 ```
 Như ví dụ trên ta có shape(arr1) = (1, 3), shape(arr2) = (2, 1). Vậy 2 vector này có thể Boardcasting vì arr2 có số 1 ở shape, nên kết quả của ví dụ này sẽ là (2, 3) 
 
+# Bài toán xóa phông
+
+Ta sẽ có: 
++ Background B
++ FakeBackground F
++ Coming image I
++ Output O
+
+Đơn giản chúng ta sẽ hiểu việc xóa phông là việc sẽ điểm ảnh nổi bật hơn vùng nền xung quanh để gắn vào vùng nền khác, vậy ta có thể làm như sau:
++ A = |I-B|
+Sau khi trừ, ta sẽ làm nổi bật các điểm ảnh tùy vào 'ngưỡng' mà chúng ta chọn, ví dụ:
++ M = 0 if A < Thresold else 0
+```python
+import cv2
+bg = cv2.imread('ảnh1.png', 1)
+img = cv2.imread('ảnh2.png',1)
+diffrence = cv2.absdiff(bg, img) # tính độ chênh lệch giữa 2 ảnh
+_, difference_binary = cv2.threshold(difference, 15, 255, cv2.THRESH_BINARY) #sử dụng ngưỡng là 15, pixel > 15 thì chuyển thành 255 để làm nổi bật điểm ảnh
+```
++ O = F if M ==0 else I
+
+Vậy output O sẽ là ảnh đã được xóa phông cũ B, và chèn sang phông mới F
